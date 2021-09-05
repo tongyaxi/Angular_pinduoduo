@@ -1,0 +1,32 @@
+<!-- <ng-container >不占用dom节点 -->
+<ng-container *ngIf="selectedTabLink$ | async as tab">
+  <ng-container *ngIf="tab === 'hot'">
+    <app-image-slider [sliders]="imagesliders$ | async" #imgSlider></app-image-slider>
+    <app-horizontal-grid [(username)]="username">
+      <div appGridItem *ngFor="let item of channels$ |async">
+        <img [src]="item.icon" alt="" appGridItemImage="2rem" [fitModle]="'cover'">
+        <span appGridItemTitle="0.6rem" class="title">{{item.title}}</span>
+      </div>
+    </app-horizontal-grid>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngFor="let ad of ad$|async; let idx = index">
+  <div class="ad-container" *ngIf="idx === 0">
+    <img [src]="ad.imageUrl" alt="" class="ad-image" />
+  </div>
+</ng-container>
+
+<app-vertical-grid [itemWidth]="'20rem'" [itemHeight]="'2rem'">
+  <app-product-card *ngFor="let product of products$|async" [product]="product" [routerLink]="['/products',product.id]">
+  </app-product-card>
+</app-vertical-grid>
+
+
+<!-- <ng-template #other>
+  other works
+</ng-template> -->
+
+<!-- <a [routerLink]="['brand']">link to grand</a> -->
+<!-- <a [routerLink]="['grand']" routerLinkActive="active">link to grand</a> -->
+<router-outlet></router-outlet>
